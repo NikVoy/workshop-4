@@ -80,6 +80,11 @@ public abstract class VehicleBase implements Vehicle {
     }
 
     @Override
+    public int getWheels() {
+        return wheels;
+    }
+
+    @Override
     public double getPrice() {
         return price;
     }
