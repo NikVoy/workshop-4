@@ -1,11 +1,8 @@
 package com.company.oop.dealership.models;
 
 import com.company.oop.dealership.models.contracts.Car;
-import com.company.oop.dealership.models.contracts.Comment;
 import com.company.oop.dealership.models.enums.VehicleType;
 import com.company.oop.dealership.utils.ValidationHelpers;
-
-import java.util.List;
 
 import static java.lang.String.format;
 
@@ -47,16 +44,8 @@ public class CarImpl extends VehicleBase implements Car {
     }
 
     @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-
-        result.append(super.toString())
-                .append(System.lineSeparator())
-                .append(String.format("Seats: %d", getSeats()))
-                .append(System.lineSeparator())
-                .append(super.printComments());
-
-        return result.toString();
+    protected String printAdditionalInfo() {
+        return String.format("%n%s: %d%n", "Seats", seats);
     }
 
 

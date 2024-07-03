@@ -46,15 +46,7 @@ public class MotorcycleImpl extends VehicleBase implements Motorcycle {
     }
 
     @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-
-        result.append(super.toString())
-                .append(System.lineSeparator())
-                .append(String.format("Category: %s", getCategory()))
-                .append(System.lineSeparator())
-                .append(super.printComments());
-
-        return result.toString();
+    protected String printAdditionalInfo() {
+        return String.format("%n%s: %s%n", "Category", category);
     }
 }

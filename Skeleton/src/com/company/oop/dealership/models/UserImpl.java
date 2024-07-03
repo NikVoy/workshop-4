@@ -102,17 +102,13 @@ public class UserImpl implements User {
 
     @Override
     public void addVehicle(Vehicle vehicle) {
-        if (isAdmin()) {
+        if (userRole == UserRole.ADMIN) {
             throw new IllegalArgumentException(ADMIN_CANNOT_ADD_VEHICLES);
-        } else {
-            if (this.getRole().equals(UserRole.VIP)) {
-                this.vehicles.add(vehicle);
-            } else if (getVehicles().size() < NORMAL_ROLE_VEHICLE_LIMIT) {
-                this.vehicles.add(vehicle);
-            } else {
-                throw new IllegalArgumentException(String.format(NOT_AN_VIP_USER_VEHICLES_ADD, NORMAL_ROLE_VEHICLE_LIMIT));
-            }
         }
+        if (userRole == UserRole.NORMAL && vehicles.size() == NORMAL_ROLE_VEHICLE_LIMIT) {
+            throw new IllegalArgumentException(String.format(NOT_AN_VIP_USER_VEHICLES_ADD, NORMAL_ROLE_VEHICLE_LIMIT));
+        }
+        vehicles.add(vehicle);
     }
 
     @Override

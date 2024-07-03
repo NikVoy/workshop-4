@@ -14,6 +14,9 @@ import static java.lang.String.format;
 
 public abstract class VehicleBase implements Vehicle {
 
+    private final static String COMMENTS_HEADER = "--COMMENTS--";
+    private final static String NO_COMMENTS_HEADER = "--NO COMMENTS--";
+
     public static final int MAKE_NAME_LEN_MIN = 2;
     public static final int MAKE_NAME_LEN_MAX = 15;
     private static final String MAKE_NAME_LEN_ERR = format(
@@ -35,9 +38,7 @@ public abstract class VehicleBase implements Vehicle {
 
     private String make;
     private String model;
-    private int wheels;
     private double price;
-    private VehicleType vehicleType;
     private List<Comment> comments;
 
     public VehicleBase(String make, String model, double price) {
@@ -80,9 +81,7 @@ public abstract class VehicleBase implements Vehicle {
     }
 
     @Override
-    public int getWheels() {
-        return wheels;
-    }
+    public abstract int getWheels();
 
     @Override
     public double getPrice() {
@@ -95,9 +94,7 @@ public abstract class VehicleBase implements Vehicle {
     }
 
     @Override
-    public VehicleType getType() {
-        return vehicleType;
-    }
+    public abstract VehicleType getType();
 
     @Override
     public List<Comment> getComments() {
@@ -120,33 +117,37 @@ public abstract class VehicleBase implements Vehicle {
 
         result.append(String.format("%s:", getType()))
                 .append(System.lineSeparator())
-                .append(String.format("Make: %s", getMake()))
+                .append(String.format("Make: %s", make))
                 .append(System.lineSeparator())
-                .append(String.format("Model: %s", getModel()))
+                .append(String.format("Model: %s", model))
                 .append(System.lineSeparator())
                 .append(String.format("Wheels: %d", getWheels()))
                 .append(System.lineSeparator())
-                .append(String.format("Price: $%s", FormattingHelpers.removeTrailingZerosFromDouble(getPrice())));
+                .append(String.format("Price: $%s", FormattingHelpers.removeTrailingZerosFromDouble(price)))
+                .append(printAdditionalInfo())
+                .append(printComments());
 
         return result.toString();
     }
+
+    protected abstract String printAdditionalInfo();
 
     protected String printComments() {
         StringBuilder result = new StringBuilder();
 
         if (getComments().isEmpty()) {
-            return "--NO COMMENTS--";
+            result.append(NO_COMMENTS_HEADER);
         } else {
 
-            result.append("--COMMENTS--")
+            result.append(COMMENTS_HEADER)
                     .append(System.lineSeparator());
 
             for (Comment comment : comments) {
-                result.append(comment.toString())
-                        .append(System.lineSeparator());
+                result.append(comment.toString());
+//                        .append(System.lineSeparator());
             }
 
-            result.append("--COMMENTS--");
+            result.append(COMMENTS_HEADER);
         }
 
         return result.toString();

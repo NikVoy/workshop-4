@@ -44,11 +44,12 @@ public class CommentImpl implements Comment {
 
         result.append("----------")
                 .append(System.lineSeparator())
-                .append(getContent())
+                .append(content)
                 .append(System.lineSeparator())
-                .append("User: ").append(getAuthor())
+                .append("User: ").append(author)
                 .append(System.lineSeparator())
-                .append("----------");
+                .append("----------")
+                .append(System.lineSeparator());
 
         return result.toString();
     }

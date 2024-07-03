@@ -45,15 +45,7 @@ public class TruckImpl extends VehicleBase implements Truck {
     }
 
     @Override
-    public String toString() {
-        StringBuilder result = new StringBuilder();
-
-        result.append(super.toString())
-                .append(System.lineSeparator())
-                .append(String.format("Weight Capacity: %dt", getWeightCapacity()))
-                .append(System.lineSeparator())
-                .append(super.printComments());
-
-        return result.toString();
+    protected String printAdditionalInfo() {
+        return String.format("%nWeight Capacity: %dt%n", weightCapacity);
     }
 }
